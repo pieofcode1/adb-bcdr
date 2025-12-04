@@ -5,9 +5,12 @@ This repository contains Infrastructure as Code (IaC) solutions for deploying Az
 ## 🏗️ Architecture Overview
 
 The solution provides:
-- **Azure Databricks Workspace** with Premium SKU and Unity Catalog
+- **Multi-Workspace Architecture** - 2 Databricks workspaces (Data Engineering + Analytics)
+- **Shared Unity Catalog** - Centralized governance across all workspaces
+- **Cross-Workspace Data Sharing** - Zero data duplication, instant access
 - **Complete Unity Catalog setup** with dedicated metastore and storage
 - **Security-first design** with VNet integration and managed identities
+- **Sample Notebooks** demonstrating Delta Lake and Unity Catalog features
 - **Multi-environment support** (dev, staging, production)
 - **Monitoring and governance** capabilities
 
@@ -25,6 +28,10 @@ The solution provides:
 │   ├── deploy.sh         # Bash deployment script
 │   └── README.md         # Detailed infrastructure documentation
 ├── src/                  # Source code and notebooks
+│   └── notebooks/        # Sample Databricks notebooks
+│       ├── 01-data-ingestion-primary-workspace.ipynb
+│       ├── 02-cross-workspace-access-analytics.ipynb
+│       └── DEMO-GUIDE.md
 └── LICENSE
 
 ```

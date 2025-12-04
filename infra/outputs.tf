@@ -104,17 +104,49 @@ output "main_catalog_name" {
   value       = var.enable_unity_catalog ? databricks_catalog.main.name : null
 }
 
+output "analytics_workspace_id" {
+  description = "ID of the Analytics Databricks workspace"
+  value       = azurerm_databricks_workspace.analytics.id
+}
+
+output "analytics_workspace_url" {
+  description = "URL of the Analytics Databricks workspace"
+  value       = "https://${azurerm_databricks_workspace.analytics.workspace_url}/"
+}
+
+output "analytics_workspace_name" {
+  description = "Name of the Analytics Databricks workspace"
+  value       = azurerm_databricks_workspace.analytics.name
+}
+
+output "shared_catalog_name" {
+  description = "Name of the shared Unity Catalog catalog"
+  value       = var.enable_unity_catalog ? databricks_catalog.shared.name : null
+}
+
 output "deployment_summary" {
   description = "Summary of deployed resources"
   value = {
     environment           = var.environment
-    location              = var.location
-    resource_group        = azurerm_resource_group.main.name
-    databricks_workspace  = azurerm_databricks_workspace.main.name
-    workspace_url         = "https://${azurerm_databricks_workspace.main.workspace_url}/"
+    location             = var.location
+    resource_group       = azurerm_resource_group.main.name
+    
+    # Primary Workspace (Data Engineering)
+    primary_workspace     = azurerm_databricks_workspace.main.name
+    primary_workspace_url = "https://${azurerm_databricks_workspace.main.workspace_url}/"
+    
+    # Analytics Workspace (Data Science)
+    analytics_workspace     = azurerm_databricks_workspace.analytics.name
+    analytics_workspace_url = "https://${azurerm_databricks_workspace.analytics.workspace_url}/"
+    
+    # Unity Catalog
     unity_catalog_enabled = var.enable_unity_catalog
-    metastore_id          = var.enable_unity_catalog ? databricks_metastore.unity_catalog.id : null
-    cluster_count         = 2
-    sql_warehouse         = databricks_sql_endpoint.analytics.name
+    metastore_id         = var.enable_unity_catalog ? databricks_metastore.unity_catalog.id : null
+    shared_catalog       = var.enable_unity_catalog ? databricks_catalog.shared.name : null
+    
+    # Resources
+    workspace_count      = 2
+    cluster_count        = 3
+    sql_warehouse        = databricks_sql_endpoint.analytics.name
   }
 }
