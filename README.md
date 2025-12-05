@@ -1,4 +1,4 @@
-# Azure Databricks Business Continuity and Disaster Recovery (BCDR)
+# Azure Databricks with Unity Catalog - Terraform Infrastructure
 
 This repository contains Infrastructure as Code (IaC) solutions for deploying Azure Databricks with Unity Catalog and comprehensive business continuity and disaster recovery capabilities.
 
